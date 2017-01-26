@@ -27,7 +27,7 @@ using namespace std;
  * createData
  * Fills the maps frequencies and followingChars according to length and file
  */
-void createData(int length, ifstream &file,  Map<string,int > &frequencies, Map< Vector<string> , Vector<string> > &prefixesToSuffixes);
+void createData(int length, ifstream &file, Map< Vector<string> , Vector<string> > &prefixesToSuffixes);
 
 /*
  * createRandomText
@@ -66,28 +66,18 @@ int main() {
         cout << "Please enter the order of the Markov model:" << endl;
         cin >> order;
         cout << "Please enter the number of random words to create" << endl;
-        cin >> words;
+        cin >> words;  
 
-        // frequencies maps strings of length order to their frequencies in infile i.e frequencies["aaa"] denotes the number of "aaa" in infile
-        Map<string,int > frequencies;
-
-        // followingChars maps strings to a vectors of the characters following the string
-        // i.e followingChars["aaa"] is a vector containing all characters following the string "aaa" in infile
         Map< Vector<string> , Vector<string> >  prefixesToSuffixes;
-        // create the frequencies map and followingChars map with respect to strings in infile of length order
-        createData(order,infile,frequencies, prefixesToSuffixes );
-
-
-
+        createData(order,infile, prefixesToSuffixes );
         // close the file
         infile.close();
 
         string output;
+        createRandomText(output, prefixesToSuffixes, words);
 
-       createRandomText(output, prefixesToSuffixes, words);
-
-       cout << "The random " << order << " Markov model text for the original text: " << filename << endl;
-       cout << output << endl << endl;
+        cout << "The random " << order << " Markov model text for the original text: " << filename << endl;
+        cout << output << endl << endl;
 
     }
 
@@ -96,9 +86,7 @@ int main() {
     return 0;
 }
 
-void createData(int order, ifstream &file,  Map<string,int > &frequencies, Map< Vector<string> , Vector<string> > &prefixesToSuffixes){
-
-
+void createData(int order, ifstream &file, Map< Vector<string> , Vector<string> > &prefixesToSuffixes){
 
     string text;
     string line;
@@ -124,6 +112,29 @@ void createData(int order, ifstream &file,  Map<string,int > &frequencies, Map< 
         if(suffix == " "){
             continue;
         }
+
+        if(!prefixesToSuffixes.containsKey(window)){
+            Vector<string> vec;
+            vec.add(suffix);
+            prefixesToSuffixes.add(window, vec);
+
+        }
+        else{
+            Vector<string> vec = prefixesToSuffixes.get(window);
+            vec.add(suffix);
+            prefixesToSuffixes.put(window, vec);
+        }
+
+        window= window.subList(1, window.size()-1);
+        window.add(suffix);
+    }
+    scanner.setInput(text);
+
+    for(int i=0; i < order; i++){
+        string suffix=scanner.nextToken();
+        if(suffix == " "){
+            continue;
+        }
         if(!prefixesToSuffixes.containsKey(window)){
             Vector<string> vec;
             vec.add(suffix);
@@ -137,21 +148,13 @@ void createData(int order, ifstream &file,  Map<string,int > &frequencies, Map< 
         window= window.subList(1, window.size()-1);
         window.add(suffix);
     }
-
-
 }
 
 void createRandomText(string &text, Map< Vector<string> , Vector<string> > &prefixesToSuffixes, int words){
-    int start = randomInteger(0, prefixesToSuffixes.size()-1);
-    int i=0;
-    Vector<string> window;
 
-    for(Vector<string> key : prefixesToSuffixes){
-        if(start==i){
-             window = key; break;
-        }
-        i++;
-    }
+    Vector< Vector<string>  > keys = prefixesToSuffixes.keys();
+    int start = randomInteger(0, keys.size()-1);
+    Vector<string> window = keys[start];
 
     for(string prefix : window){
         text += prefix;
@@ -161,17 +164,15 @@ void createRandomText(string &text, Map< Vector<string> , Vector<string> > &pref
 
     }
     for(int i=0; i < words; i++){
-        cout << window << endl;
         Vector<string>suffixes = prefixesToSuffixes.get(window);
-        cout << suffixes << endl;
-        string suffix = suffixes[randomInteger(0,suffixes.size()-1)];
-        cout << suffix << endl;
+        int random = randomInteger(0,suffixes.size()-1);
+        string suffix = suffixes[random];
+
         text+=suffix;
 
         if(suffix != "\n"){
             text += " ";
         }
-
         window = window.subList(1, window.size()-1);
         window.add(suffix);
     }
