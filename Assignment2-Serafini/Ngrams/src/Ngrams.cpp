@@ -25,21 +25,15 @@ using namespace std;
 
 /*
  * createData
- * Fills the maps frequencies and followingChars according to length and file
+ * Fills map prefixesToSuffixes  
  */
-void createData(int length, ifstream &file, Map< Vector<string> , Vector<string> > &prefixesToSuffixes);
+void createData(int n, ifstream &file, Map< Vector<string> , Vector<string> > &prefixesToSuffixes);
 
 /*
  * createRandomText
- * Fills the string text with a random text according to the maps frequencies and followingChars
+ * Fills the string text with a random text
  */
 void createRandomText(string &text, Map< Vector<string> , Vector<string> > &prefixesToSuffixes, int words);
-
-/*
- * highestFrequency
- * returns the string with highest Frequency among all frequencies
- */
-string highestFrequency(Map<string,int > &frequencies);
 
 
 int main() {
@@ -62,7 +56,7 @@ int main() {
                 cout << "Have a nice day!" << endl;
                 return 0;
             }
-            // Open the file
+
             infile.open(filename);
             if(infile.fail()){
                 cout << "Could open the file " << filename << endl;
@@ -92,7 +86,7 @@ int main() {
 
         Map< Vector<string> , Vector<string> >  prefixesToSuffixes;
         createData(order,infile, prefixesToSuffixes );
-        // close the file
+
         infile.close();
 
         string output;
@@ -111,30 +105,37 @@ void createData(int order, ifstream &file, Map< Vector<string> , Vector<string> 
     string word;
     Vector<string> window;
 
+    // read the file one word at a time
     while(file >> word ){
+
+        // fill the window with order-1 words
         if(window.size() < order-1){
 
             window.add(word);
             continue;
         }
 
+        // add window -> word to map
         if(!prefixesToSuffixes.containsKey(window)){
             Vector<string> vec;
             vec.add(word);
             prefixesToSuffixes.add(window, vec);
 
         }
+        // add word to the vector corresponding to the key window
         else{
             Vector<string> vec = prefixesToSuffixes.get(window);
             vec.add(word);
             prefixesToSuffixes.put(window, vec);
         }
 
+        // remove the first first item in window and add word to the window
         window= window.subList(1, window.size()-1);
         window.add(word);
     }
     file.clear();
 
+    // make the map cyclic
     for(int i=0; i < order; i++){
         file >> word;
         if(!prefixesToSuffixes.containsKey(window)){
@@ -157,21 +158,28 @@ void createData(int order, ifstream &file, Map< Vector<string> , Vector<string> 
 void createRandomText(string &text, Map< Vector<string> , Vector<string> > &prefixesToSuffixes, int words){
 
     Vector< Vector<string>  > keys = prefixesToSuffixes.keys();
+    // choose a random start  
     int start = randomInteger(0, keys.size()-1);
+    
     Vector<string> window = keys[start];
     text="...";
+    
+    // add the start to the text
     for(string prefix : window){
         text += prefix+" ";
     }
 
     for(int i=0; i < words; i++){
 
+        // get the suffixes for the current window
         Vector<string>suffixes = prefixesToSuffixes.get(window);
+        
+        // add a random suffix
         int random = randomInteger(0,suffixes.size()-1);
         string suffix = suffixes[random];
-
         text+=suffix+" ";
 
+        // update the window
         window = window.subList(1, window.size()-1);
         window.add(suffix);
     }
