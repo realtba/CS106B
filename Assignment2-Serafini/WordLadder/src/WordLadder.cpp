@@ -1,8 +1,9 @@
 /*
- * This program creates a word ladder from a star word to an end word. In a word ladder two consecutive differ only by one character.
+ * This program uses Ngrams to create random texts from a given text.
  *
- * This exercise was part of Assignment 2 of the Stanford course CS106B from 2013. For more information visits
- * https://web.stanford.edu/class/archive/cs/cs106b/cs106b.1136/ or https://github.com/realtba/CS106B
+ * This exercise was part of Assignment 2 of the Stanford course CS106B from 2016. For more information visits
+ * http://web.stanford.edu/class/archive/cs/cs106b/cs106b.1172 or https://github.com/realtba/CS106B
+ * The Assignment can be found here http://web.stanford.edu/class/archive/cs/cs106b/cs106b.1172/assn/serafini.html
  *
  * created by B. Jost
  *
@@ -21,7 +22,7 @@ using namespace std;
 
 
 /*  WordLadder
- *  Returns a word ladder from start to end of words from lexicon or "No ladder found" if there is no word ladder
+ *  Returns a word ladder from start to end using words from lexicon or "No ladder found" if there is no word ladder
  */
 Vector<string> WordLadder(string start, string end,const Set<string> &lexicon);
 

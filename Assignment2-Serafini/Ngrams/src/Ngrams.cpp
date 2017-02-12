@@ -3,6 +3,7 @@
  *
  * This exercise was part of Assignment 2 of the Stanford course CS106B from 2016. For more information visits
  * http://web.stanford.edu/class/archive/cs/cs106b/cs106b.1172 or https://github.com/realtba/CS106B
+ * The Assignment can be found here http://web.stanford.edu/class/archive/cs/cs106b/cs106b.1172/assn/serafini.html
  *
  * created by B. Jost
  *
@@ -23,7 +24,7 @@
 
 using namespace std;
 
-/*
+/* 
  * createData
  * Fills map prefixesToSuffixes  
  */
