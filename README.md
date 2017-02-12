@@ -8,6 +8,7 @@ Content:
 Assignment 2: Serafini
 
 Part A - Word Ladder:  A world ladder is a series of words from one word to another where consecutive words differ by only one letter e.g code → cade → cate → date → data. The code uses the breadth first algorithm to find a world ladder for a given start and end word.
+
 Part B - Random Writer: The code uses Ngrams to to randomly generate texts from existing texts. By only randomly choosing words which follow the last N-1 generated words in the original text the randomly generated text has the same style as the original text.
  
 Assignment 3: MetaAcademy
