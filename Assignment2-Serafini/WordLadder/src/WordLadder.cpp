@@ -117,7 +117,7 @@ Vector<string> WordLadder(string start, string end, const Set<string> &lexicon){
         Set<string> wordsCharAway(WordsOneCharAway(firstLadder[firstLadder.size()-1], lexicon));
 
         // Check for each word in wordsCharAway if we have not already used the word in order to prevent infinite loops
-        // If so, create a copy firstLadder, add the word and add the new ladder to the queue
+        // If so, create a copy of firstLadder, add the word and add the new ladder to the queue
         foreach(string word in wordsCharAway)
             if(!usedWords.contains(word)){
                 Vector<string> newCopy(firstLadder);
@@ -163,7 +163,6 @@ bool IsOneCharAway(string word1, string word2){
         if(difference > 1 ) return false;
     }
     // if the difference is 1 the words are one character away from each other
-    if(difference == 1) return true;
 
-    return true;
+    return (difference == 1);
 }
