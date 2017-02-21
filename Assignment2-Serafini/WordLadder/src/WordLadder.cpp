@@ -107,7 +107,7 @@ Vector<string> WordLadder(string start, string end, const Set<string> &lexicon){
     // repeat as long as the queue is not empty
     while(!wordLadders.isEmpty()){
 
-        // dequeue the first word
+        // dequeue the first ladder in the queue
         Vector<string> firstLadder= wordLadders.dequeue();
 
         // if the last word of firstLadder is the wanted end we are done. return the ladder.
