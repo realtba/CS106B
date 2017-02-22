@@ -95,7 +95,7 @@ bool Boggle::checkPath(Cell cell, string &word, Vector<Cell> &positions){
         for(DIRECTIONS dir= NORTH; dir <= NORTHEAST; dir++){
             if(this->IsValidDirection(cell, dir)){
                 Cell neighbour =cell.GetNeighbour(dir);
-                // If this point is checked we move with the next direction
+                // If this point is checked we continue with the next direction
                 if(this->cubes[neighbour.row][neighbour.col].getChecked()){
                     continue;
                 }
