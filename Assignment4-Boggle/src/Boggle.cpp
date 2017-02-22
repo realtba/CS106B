@@ -81,7 +81,7 @@ bool Boggle::checkPath(Cell cell, string &word, Vector<Cell> &positions){
 
 
     char c = this->getLetter(cell);
-    // if the current letter is the first letter of word and there are unchecked neighbours we continue the search
+    // if the current letter is at the correct postion within word and there are unchecked neighbours we continue the search
     if(word[positions.size()] == c && this->hasUncheckedNeighbor(cell)){
 
         // add the current point to the solution
