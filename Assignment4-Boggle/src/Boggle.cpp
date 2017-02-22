@@ -77,12 +77,11 @@ char Boggle::getLetter(Cell cell){
     return this->cubes[cell.row][cell.col].getLetterUp();
 }
 
-
 bool Boggle::checkPath(Cell cell, string &word, Vector<Cell> &positions){
 
 
     char c = this->getLetter(cell);
-    // if the current letter is the start of the first word  and there are unchecked neighbours we continue the search
+    // if the current letter is the first letter of word and there are unchecked neighbours we continue the search
     if(word[positions.size()] == c && this->hasUncheckedNeighbor(cell)){
 
         // add the current point to the solution
