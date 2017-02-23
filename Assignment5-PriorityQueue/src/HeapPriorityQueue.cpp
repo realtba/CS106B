@@ -98,8 +98,7 @@ void HeapPriorityQueue::bubbleDown(int element){
         }
 
         // there is only a left child i.e we are at the end of the tree
-        // (Again: the last condition is unnecassary, , we keep it for symmetry)
-        else if(2*i == this->queueSize && 2*i+1 == this->queueSize){
+        else if(2*i == this->queueSize){
 
             // if the left child is smaller we need to switch
             if( this->queue[i] >= this->queue[2*i] ){
