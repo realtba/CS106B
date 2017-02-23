@@ -72,8 +72,8 @@ void HeapPriorityQueue::bubbleUp(int element){
 void HeapPriorityQueue::bubbleDown(int element){
     int i = element;
     while(i <= this->queueSize ){
-        // there is a left and a right child
-        if(2*i <= this->queueSize && 2*i+1 <= this->queueSize){
+        // there is a right child
+        if(2*i+1 <= this->queueSize){
             //if left child is smaller and left child is smaller then right child
             // swap and continue
             if( this->queue[i] >= this->queue[2*i]
