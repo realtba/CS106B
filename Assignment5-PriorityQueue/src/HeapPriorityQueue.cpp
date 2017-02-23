@@ -74,18 +74,18 @@ void HeapPriorityQueue::bubbleDown(int element){
     while(i <= this->queueSize ){
         // there is a right child
         if(2*i+1 <= this->queueSize){
-            //if left child is smaller and left child is smaller then right child
+            //if left child is smaller then its parent and left child is smaller then right child
             // swap and continue
-            if( this->queue[i] >= this->queue[2*i]
+            if( this->queue[2*i] <= this->queue[i] 
                 &&  this->queue[2*i] <=  this->queue[2*i+1] ){
                 this->swap(i,2*i);
                 i = 2*i;
                 continue;
             }
-            // if right child is smaller and left child is smaller then left child
+            // if right child is smaller then its parent and right child is smaller then left child
             // swap and continue
             // (Note: the second conditin is unnecassary, we keep it for symmetry)
-            else if( this->queue[i] >=this->queue[2*i+1]
+            else if( this->queue[2*i+1] <= this->queue[i]
                      && this->queue[2*i+1] <= this->queue[2*i]){
                 this->swap(i,2*i+1);
                 i = 2*i+1;
@@ -101,7 +101,7 @@ void HeapPriorityQueue::bubbleDown(int element){
         else if(2*i == this->queueSize){
 
             // if the left child is smaller we need to switch
-            if( this->queue[i] >= this->queue[2*i] ){
+            if( this->queue[2*i] <= this->queue[i] ){
                 this->swap(i,2*i);
             }
             break;
